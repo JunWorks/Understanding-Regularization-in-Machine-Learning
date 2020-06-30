@@ -2,8 +2,6 @@ Understanding Regularization in Machine Learning
 ================
 How to deal with overfitting using regularization
 
-Jun Jan 01, 2020
-
 Introduction
 ------------
 
