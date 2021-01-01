@@ -9,5 +9,25 @@ In my previous [repo](https://github.com/JunWorks/Logistic-Regression-from-scrat
 
 To overcome this issue, we mainly have two choices: 1) remove less useful features, 2) use regularization. This repo will focus on regularization.
 
+Example data to be classified
+------------
 
-You can also see the tutorial [here](https://towardsdatascience.com/understanding-regularization-in-machine-learning-5a0369ac73b9#3b9a-5d25d83f41c6).
+<p float="left">
+  <img src="/images/data_plot.png" width="500" />
+</p>
+
+Logistic regression with no regularization
+------------
+<p float="left">
+  <img src="/images/no_reg.png" width="500" />
+</p>
+
+Logistic regression with regularization
+------------
+<p float="left">
+  <img src="/images/reg.png" width="500" />
+</p>
+
+You can see the tutorial [here](https://towardsdatascience.com/understanding-regularization-in-machine-learning-5a0369ac73b9#3b9a-5d25d83f41c6).
+
+Similar tutorial with Python can be viewed [here](https://github.com/JunWorks/ML-Algorithm-with-Python).

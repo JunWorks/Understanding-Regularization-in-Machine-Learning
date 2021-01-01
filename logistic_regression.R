@@ -3,7 +3,7 @@ library(dplyr)
 
 
 N <- 200 # number of points per class
-D <- 2 # dimensionality, we use 2D data for easy visulization
+D <- 2 # dimensionality, we use 2D data for easy visualization
 K <- 2 # number of classes, binary for logistic regression
 X <- data.frame() # data matrix (each row = single example, can view as xy coordinates)
 y <- data.frame() # class labels
@@ -25,9 +25,11 @@ for (j in (1:K)){
 data <- cbind(X,y)
 colnames(data) <- c(colnames(X), 'label')
 
+# create dir images
+dir.create(file.path('.', 'images'), showWarnings = FALSE)
 
 # lets visualize the data:
-ggplot(data) + geom_point(aes(x=x1, y=x2, color = as.character(label)), size = 2) + 
+data_plot <- ggplot(data) + geom_point(aes(x=x1, y=x2, color = as.character(label)), size = 2) + 
   scale_colour_discrete(name  ="Label") + 
   xlim(-2, 2) + ylim(-2, 2) +
   coord_fixed(ratio = 1) +
@@ -35,6 +37,9 @@ ggplot(data) + geom_point(aes(x=x1, y=x2, color = as.character(label)), size = 2
   theme_bw(base_size = 15) +
   theme(legend.position=c(0.85, 0.87))
 
+png(file.path('images', 'data_plot.png'))
+print(data_plot)
+dev.off()
 
 #sigmoid function, inverse of logit
 sigmoid <- function(z){1/(1+exp(-z))}
@@ -109,20 +114,29 @@ expandFeature <- function(X, power = 4){
 # training
 power <-6
 Xtrain <- expandFeature(X, power)
-theta <- logisticReg(Xtrain, y, lambda = 0) #lambda = 5
-# generate a grid for decision boundary, this is the test set
-grid <- expand.grid(seq(-2, 2, length.out = 100), seq(-2, 2, length.out = 100))
-grid <- expandFeature(grid, power)
-# predict the probability
-probZ <- logisticProb(theta, grid)
-# predict the label
-Z <- logisticPred(probZ)
-gridPred = cbind(grid, Z)
 
-# decision boundary visualization
-ggplot() +   geom_point(data = data, aes(x=x1, y=x2, color = as.character(label)), size = 2, show.legend = F) + 
-  geom_tile(data = gridPred, aes(x = grid[, 1],y = grid[, 2], fill=as.character(Z)), alpha = 0.3, show.legend = F)+ 
-  #ylim(0, 3) +
-  ggtitle('Decision Boundary for Logistic Regression') +
-  coord_fixed(ratio = 1) +
-  theme_bw(base_size = 15) 
+lambdas <- c(0, 5)
+names <- c('no_reg', 'reg')
+for (i in c(1, 2)){
+  theta <- logisticReg(Xtrain, y, lambda = lambdas[i]) #lambda = 5
+  # generate a grid for decision boundary, this is the test set
+  grid <- expand.grid(seq(-2, 2, length.out = 100), seq(-2, 2, length.out = 100))
+  grid <- expandFeature(grid, power)
+  # predict the probability
+  probZ <- logisticProb(theta, grid)
+  # predict the label
+  Z <- logisticPred(probZ)
+  gridPred = cbind(grid, Z)
+  
+  # decision boundary visualization
+  p <- ggplot() + geom_point(data = data, aes(x=x1, y=x2, color = as.character(label)), size = 2, show.legend = F) + 
+    geom_tile(data = gridPred, aes(x = grid[, 1],y = grid[, 2], fill=as.character(Z)), alpha = 0.3, show.legend = F)+ 
+    #ylim(0, 3) +
+    ggtitle('Decision Boundary for Logistic Regression') +
+    coord_fixed(ratio = 1) +
+    theme_bw(base_size = 15) 
+  
+  png(file.path('images', paste(names[i], '.png')))
+  print(p)
+  dev.off()
+} 
