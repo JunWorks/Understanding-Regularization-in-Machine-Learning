@@ -13,19 +13,19 @@ Example data to be classified
 ------------
 
 <p float="left">
-  <img src="/images/data_plot.png" width="500" />
+  <img src="/images/data_plot.png" width="400" />
 </p>
 
 Logistic regression with no regularization
 ------------
 <p float="left">
-  <img src="/images/no_reg.png" width="500" />
+  <img src="/images/no_reg.png" width="400" />
 </p>
 
 Logistic regression with regularization
 ------------
 <p float="left">
-  <img src="/images/reg.png" width="500" />
+  <img src="/images/reg.png" width="400" />
 </p>
 
 You can see the tutorial [here](https://towardsdatascience.com/understanding-regularization-in-machine-learning-5a0369ac73b9#3b9a-5d25d83f41c6).
