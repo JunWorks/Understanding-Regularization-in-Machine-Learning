@@ -136,7 +136,7 @@ for (i in c(1, 2)){
     coord_fixed(ratio = 1) +
     theme_bw(base_size = 15) 
   
-  png(file.path('images', paste(names[i], '.png')))
+  png(file.path('images', paste(names[i], '.png', sep = '')))
   print(p)
   dev.off()
 } 
